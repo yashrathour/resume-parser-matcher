@@ -52,7 +52,8 @@ _nlp_model = None
 def get_spacy_model(model_name: str = "en_core_web_sm"):
     """
     Loads and caches the spaCy language model.
-    Attempts automatic download if the model is not found.
+    Attempts automatic loading and falls back to a blank pipeline if unavailable,
+    ensuring zero runtime crash on cloud hosting.
     """
     global _nlp_model
     if _nlp_model is not None:
@@ -60,17 +61,26 @@ def get_spacy_model(model_name: str = "en_core_web_sm"):
 
     try:
         _nlp_model = spacy.load(model_name)
-    except OSError:
-        try:
-            # Attempt to download the model on the fly if missing
-            spacy.cli.download(model_name)
-            _nlp_model = spacy.load(model_name)
-        except Exception as e:
-            # Fallback to blank model with sentencizer if download fails
-            print(f"Warning: Could not load or download spaCy model '{model_name}': {e}")
-            _nlp_model = spacy.blank("en")
-            if "sentencizer" not in _nlp_model.pipe_names:
-                _nlp_model.add_pipe("sentencizer")
+        return _nlp_model
+    except Exception:
+        pass
+
+    try:
+        import subprocess
+        import sys
+        subprocess.run(
+            [sys.executable, "-m", "spacy", "download", model_name],
+            check=False,
+            capture_output=True
+        )
+        _nlp_model = spacy.load(model_name)
+        return _nlp_model
+    except Exception as e:
+        print(f"Warning: Could not load or download '{model_name}': {e}. Using blank English pipeline.")
+
+    _nlp_model = spacy.blank("en")
+    if "sentencizer" not in _nlp_model.pipe_names:
+        _nlp_model.add_pipe("sentencizer")
 
     return _nlp_model
 
