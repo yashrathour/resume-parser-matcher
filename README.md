@@ -1,5 +1,9 @@
 # AI-Powered Resume Parser & Skill Matcher 📄⚡
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://resume-parser-yr.streamlit.app/)
+
+> **🌐 Live Deployed Application:** **[https://resume-parser-yr.streamlit.app/](https://resume-parser-yr.streamlit.app/)**
+
 An intelligent, glassmorphism-styled Streamlit application that evaluates candidate resumes against target job descriptions using **spaCy NER**, **regex entity extraction**, and **TF-IDF semantic cosine similarity**.
 
 ---
@@ -23,7 +27,7 @@ An intelligent, glassmorphism-styled Streamlit application that evaluates candid
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/resume-parser-matcher.git
+git clone https://github.com/yashrathour/resume-parser-matcher.git
 cd resume-parser-matcher
 
 # 2. Create and activate a virtual environment
@@ -42,12 +46,11 @@ streamlit run app.py
 
 ---
 
-## ☁️ Deploying to Streamlit Community Cloud
+## ☁️ Live Cloud Deployment
 
-1. Push this repository to your GitHub account.
-2. Sign in to [share.streamlit.io](https://share.streamlit.io) with your GitHub account.
-3. Click **New app**, select your repository, set the main file path to `app.py`, and click **Deploy**!
-*(All dependencies including the spaCy model are pre-configured in `requirements.txt` for automatic installation).*
+The application is deployed on **Streamlit Community Cloud**:
+- **Live URL**: [https://resume-parser-yr.streamlit.app/](https://resume-parser-yr.streamlit.app/)
+- **Repository**: [https://github.com/yashrathour/resume-parser-matcher](https://github.com/yashrathour/resume-parser-matcher)
 
 ---
 
